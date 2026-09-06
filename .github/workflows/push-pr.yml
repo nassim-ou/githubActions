@@ -1,4 +1,5 @@
 on:
+#on every push (webhook trigger) the change will be in in src
   push:
     branches:
       - main
@@ -15,7 +16,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@4.2.2
-      
+
     - name: Run tests
       run: npm test
 
