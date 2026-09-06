@@ -1,6 +1,16 @@
 name: CI Test Workflow
 
-on: { push: { branches: [main, "release/**"], paths: ["src/**"] }, pull_request: { branches: [main, "release/**"] } }
+on:
+  push:
+    branches:
+      - main
+      - "release/**"
+    paths:
+      - "src/**"
+  pull_request:
+    branches:
+      - main
+      - "release/**"
 
 jobs:
   test:
@@ -8,9 +18,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Run tests
         run: npm test
