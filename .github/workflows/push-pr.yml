@@ -1,44 +1,24 @@
-# Name of the workflow visible in the GitHub Actions tab
 name: CI Test Workflow
-
-# Defines what events will automatically trigger this workflow
 on:
-# Trigger 1: When code is pushed directly or merged
-push:
-  # Only target the 'main' branch or any branch starting with 'release/'
-  branches:
-    - main
-    - "release/**"
-  # Only trigger if changes were made inside the 'src' folder
-  paths:
-    - "src/**"
-    
-# Trigger 2: When a Pull Request is opened or updated
-pull_request:
-  # Only target PRs aimed at merging into main or release branches
-  branches:
-    - main
-    - "release/**"
-
-# The sequence of jobs that will run sequentially or in parallel
+  push:
+    branches:
+      - main
+      - "release/**"
+    paths:
+      - "src/**"
+  pull_request:
+    branches:
+      - main
+      - "release/**"
 jobs:
-# The identifier for our testing job
-test:      
-  # Specifies the virtual machine operating system (Ubuntu Linux)
-  runs-on: ubuntu-latest
-  
-  # The actual steps/commands executed inside the virtual machine
-  steps:
-  # Step 1: Downloads a copy of your repository code into the runner
-  - name: Checkout code
-    uses: actions/checkout@v4
-
-  # Step 2: Installs the specific Node.js version required for your project
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-
-  # Step 3: Runs the "npm test" command configured in your package.json
-  - name: Run tests
-    run: npm test
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run tests
+        run: npm test
